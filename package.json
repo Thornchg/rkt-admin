@@ -7,15 +7,24 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "echarts": "^4.2.0-rc.2",
+    "hey-global": "^1.0.0",
+    "hey-utils": "^0.4.0",
+    "heyui": "^1.15.0",
+    "js-model": "^1.6.1",
+    "lodash.debounce": "^4.0.8",
     "vue": "^2.5.22",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "wangeditor": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-service": "^3.4.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
+    "style-resources-loader": "^1.2.1",
+    "vue-cli-plugin-style-resources-loader": "^0.1.3",
     "vue-template-compiler": "^2.5.21"
   }
 }
