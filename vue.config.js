@@ -9,7 +9,7 @@ module.exports = {
     'style-resources-loader': {
       preProcessor: 'less',
       patterns: [
-        resolve('src/assets/css/app.less'),
+        resolve('src/assets/css/var.less'),
       ]
     }
   },
