@@ -11,7 +11,7 @@
     .background-image {
       height: 300px;
       max-width: 500px;
-      background: url(../../assets/img/500.png) no-repeat center;
+      background: url(../assets/img/500.png) no-repeat center;
       background-size: contain;
       margin: 0 auto 50px;
     }

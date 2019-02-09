@@ -19,7 +19,7 @@ let vueRouter= new VueRouter({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/index.vue'),
+          component: () => import(/* webpackChunkName: "about" */ './pages/index.vue'),
           meta: {title: '首页'}
         },{
           path: 'tableBasic',
@@ -27,7 +27,7 @@ let vueRouter= new VueRouter({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/table/basic.vue'),
+          component: () => import(/* webpackChunkName: "about" */ './pages/table/basic.vue'),
           meta: {title: '首页'}
         },{
           path: 'tableSearch',
@@ -35,7 +35,7 @@ let vueRouter= new VueRouter({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/table/search.vue'),
+          component: () => import(/* webpackChunkName: "about" */ './pages/table/search.vue'),
           meta: {title: '首页'}
         }, {
           path: 'form',
@@ -43,31 +43,47 @@ let vueRouter= new VueRouter({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/form.vue'),
+          component: () => import(/* webpackChunkName: "about" */ './pages/form.vue'),
           meta: {title: '首页'}
+        }, {
+          path: 'questionInfo',
+          name: 'questionInfo',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import(/* webpackChunkName: "about" */ './pages/question/question-info.vue'),
+          meta: {title: '题库信息'}
         }, {
           path: 'addChoice',
           name: 'addChoice',
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/question/add-choice.vue'),
-          meta: {title: '首页'}
+          component: () => import(/* webpackChunkName: "about" */ './pages/question/add-choice.vue'),
+          meta: {title: '添加综合知识题'}
         }, {
           path: 'addCase',
           name: 'addCase',
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/question/add-case.vue'),
-          meta: {title: '首页'}
+          component: () => import(/* webpackChunkName: "about" */ './pages/question/add-case.vue'),
+          meta: {title: '添加案例题'}
+        }, {
+          path: 'addThesis',
+          name: 'addThesis',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import(/* webpackChunkName: "about" */ './pages/question/add-thesis.vue'),
+          meta:{title:'添加论文题'}
         }, {
           path: 'systemError',
           name: 'systemError',
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/500.vue'),
+          component: () => import(/* webpackChunkName: "about" */ './pages/500.vue'),
           meta: {title: '系统错误'}
         }, {
           path: 'permissionError',
@@ -75,7 +91,7 @@ let vueRouter= new VueRouter({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/403.vue'),
+          component: () => import(/* webpackChunkName: "about" */ './pages/403.vue'),
           meta: {title: '权限错误'}
         }, {
           path: 'accountBasic',
@@ -83,22 +99,22 @@ let vueRouter= new VueRouter({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/account/account.vue')
+          component: () => import(/* webpackChunkName: "about" */ './pages/account/account.vue')
         }, {
           path: 'securitySetting',
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "about" */ './components/pages/account/account-setting.vue'),
+          component: () => import(/* webpackChunkName: "about" */ './pages/account/account-setting.vue'),
           children: [
             {
               path: '',
               name: 'securitySetting',
-              component: () => import('./components/pages/account/modules/security-setting.vue'),
+              component: () => import('./pages/account/modules/security-setting.vue'),
             },{
               path: 'noticeSetting',
               name: 'noticeSetting',
-              component: () => import('./components/pages/account/modules/notice-setting.vue'),
+              component: () => import('./pages/account/modules/notice-setting.vue'),
             }
           ]
 

@@ -32,19 +32,23 @@ const menuConfig = [
     children: [
       {
         title: '题库信息',
-        key: 'questionInfo'
+        key: 'questionInfo',
+        meta:{title:'题库信息'}
       },
       {
         title: '添加综合知识题',
-        key: 'addChoice'
+        key: 'addChoice',
+        meta:{title:'添加综合知识题'}
       },
       {
         title: '添加案例题',
-        key: 'addCase'
+        key: 'addCase',
+        meta:{title:'添加案例题'}
       },
       {
         title: '添加论文题',
-        key: 'addThesis'
+        key: 'addThesis',
+        meta:{title:'添加论文题'}
       },
 
     ]
