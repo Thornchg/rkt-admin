@@ -6,8 +6,9 @@
             </div>
             <div class="h-panel-body" style="padding: 40px;">
                 <Form :label-width="110" :mode="mode" :model="data" :rules="validationRules" ref="form">
-                    <FormItem label="知识点" prop="knowledge">
-                        <Select v-model="data.knowledge" :datas="knowledgeParams"></Select>
+                    <FormItem label="知识点" prop="knowledgeId">
+                        <Select v-model="data.knowledgeId" :datas="knowledgeParams"
+                                keyName="id" titleName="name"></Select>
                     </FormItem>
                     <FormItem label="题目" :single="true" prop="topic">
                         <!--<textarea rows="3" v-autosize v-model="data.topic"></textarea>-->
@@ -28,26 +29,26 @@
 </template>
 <script>
     export default {
-        name:'addChoice',
+        name: 'addChoice',
         data() {
             return {
-                knowledgeParams:[
-                    {title:'软件工程',key:0},
-                    {title:'计算机网络',key:1},
-                    {title:'操作系统',key:2}
+                knowledgeParams: [
+                    {title: '软件工程', key: 0},
+                    {title: '计算机网络', key: 1},
+                    {title: '操作系统', key: 2}
                 ],
-                selectCount:1,
+                selectCount: 1,
                 mode: 'single',
                 data: {
-                    knowledge:'',
-                    topic:'',
-                    resolve:'',
+                    knowledgeId: '',
+                    topic: '',
+                    resolve: '',
                 },
                 isLoading: false,
                 validationRules: {
                     required: [
                         'topic',
-                        'knowledge',
+                        'knowledgeId',
                     ],
                 }
             }
@@ -59,9 +60,17 @@
                 if (validResult.result) {
                     this.$Message("验证成功");
                     this.isLoading = true;
-                    setTimeout(() => {
+                    axios.post('/question/addCaseQuestion',
+                        JSON.stringify(this.data),
+                        {headers: {'Content-Type': 'application/json'}})
+                        .then(response => {
+                            console.log(response);
+                            this.isLoading = false;
+                            this.$Message.success('成功添加案例分析题！');
+                        }).catch(error => {
+                        console.error(error);
                         this.isLoading = false;
-                    }, 1000);
+                    });
                 } else {
                     this.$Message.error(`还有${validResult.messages.length}个错误未通过验证。`);
                 }
@@ -70,6 +79,18 @@
                 this.isLoading = false;
                 this.$refs.form.reset();
             },
+            getKnowledgeList(){
+                axios.get("/knowledge/list")
+                    .then(response=>{
+                        // this.setSubjectParams(response.data);
+                        // console.log(response.data)
+                        this.knowledgeParams=response.data;
+                    })
+                    .catch(()=>{})
+            }
+        },
+        mounted() {
+            this.getKnowledgeList();
         }
     };
 </script>

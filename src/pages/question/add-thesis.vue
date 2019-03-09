@@ -6,8 +6,8 @@
             </div>
             <div class="h-panel-body" style="padding: 40px;">
                 <Form :label-width="110" :mode="mode" :model="data" :rules="validationRules" ref="form">
-                    <FormItem label="科目" prop="subject">
-                        <Select v-model="data.subject" autosize :datas="subjectParams"></Select>
+                    <FormItem label="科目" prop="subjectId">
+                        <Select v-model="data.subjectId" autosize :datas="subjectParams" keyName="id" titleName="name"></Select>
                     </FormItem>
                     <FormItem label="题目" :single="true" prop="topic">
                         <!--<textarea rows="3" v-autosize v-model="data.topic"></textarea>-->
@@ -28,7 +28,7 @@
         data() {
             return {
                 subjectParams:[
-                    {title:'软考高级',isLabel:true},
+                    /*{title:'软考高级',isLabel:true},
                     {title:'系统分析师',key:14},
                     {title:'信息系统项目管理师',key:15},
                     {title:'网络规划设计师',key:16},
@@ -49,19 +49,19 @@
                     {title:'程序员',key:0},
                     {title:'网络管理员',key:1},
                     {title:'信息处理技术员',key:2},
-                    {title:'信息系统运行管理员',key:3},
+                    {title:'信息系统运行管理员',key:3},*/
 
                 ],
                 mode: 'single',
                 data: {
-                    subject:'',
+                    subjectId:'',
                     topic:''
                 },
                 isLoading: false,
                 validationRules: {
                     required: [
                         'topic',
-                        'subject',
+                        'subjectId',
                     ],
                 }
             }
@@ -71,8 +71,18 @@
                 let validResult = this.$refs.form.valid();
                 // log(validResult.messages);
                 if (validResult.result) {
-                    this.$Message("验证成功");
                     this.isLoading = true;
+                    axios.post('/question/addThesisQuestion',
+                        JSON.stringify(this.data),
+                        {headers: {'Content-Type': 'application/json'}})
+                        .then(response => {
+                            console.log(response);
+                            this.isLoading = false;
+                            this.$Message.success('成功添加案例分析题！');
+                        }).catch(error => {
+                        console.error(error);
+                        this.isLoading = false;
+                    });
                     setTimeout(() => {
                         this.isLoading = false;
                     }, 1000);
@@ -84,6 +94,30 @@
                 this.isLoading = false;
                 this.$refs.form.reset();
             },
+            setSubjectParams(subjects){
+                let params=[];
+                let level=0;
+                for (let subject of subjects){
+                    if (subject.level!==level){
+                        let labelName=['软考初级','软考中级','软考高级'];
+                        params.push({
+                            // id:'level'+subject.level,
+                            name:labelName[subject.level-1],
+                            isLabel:true
+                        });
+                        level=subject.level;
+                    }
+                    params.push(subject);
+                }
+                this.subjectParams=params;
+            }
+        },
+        mounted() {
+            axios.get("/subject/list")
+                .then(response=>{
+                    this.setSubjectParams(response.data);
+                })
+                .catch(()=>{})
         }
     };
 </script>

@@ -6,8 +6,9 @@
             </div>
             <div class="h-panel-body" style="padding: 40px;">
                 <Form :label-width="110" :mode="mode" :model="data" :rules="validationRules" ref="form">
-                    <FormItem label="知识点" prop="knowledge">
-                        <Select v-model="data.knowledge" :datas="knowledgeParams"></Select>
+                    <FormItem label="知识点" prop="knowledgeId">
+                        <Select v-model="data.knowledgeId" :datas="knowledgeParams"
+                        keyName="id" titleName="name"></Select>
                     </FormItem>
                     <FormItem label="题目" :single="true" prop="topic">
                         <!--<textarea rows="3" v-autosize v-model="data.topic"></textarea>-->
@@ -19,17 +20,17 @@
                                 <Button text-color="red" :no-border="true" icon="h-icon-trash">删除</Button>
                             </Poptip>
                         </FormItem>
-                        <FormItem label="选项A" :prop="'selects['+index+'].A'">
-                            <input type="text" v-model="item.A" placeholder="选项A"/>
+                        <FormItem label="选项A" :prop="'selects['+index+'].choiceA'">
+                            <input type="text" v-model="item.choiceA" placeholder="选项A"/>
                         </FormItem>
-                        <FormItem label="选项B" :prop="'selects['+index+'].B'">
-                            <input type="text" v-model="item.B" placeholder="选项B"/>
+                        <FormItem label="选项B" :prop="'selects['+index+'].choiceB'">
+                            <input type="text" v-model="item.choiceB" placeholder="选项B"/>
                         </FormItem>
-                        <FormItem label="选项C" :prop="'selects['+index+'].C'">
-                            <input type="text" v-model="item.C" placeholder="选项C" />
+                        <FormItem label="选项C" :prop="'selects['+index+'].choiceC'">
+                            <input type="text" v-model="item.choiceC" placeholder="选项C" />
                         </FormItem>
-                        <FormItem label="选项D" :prop="'selects['+index+'].D'">
-                            <input type="text"  v-model="item.D" placeholder="选项D"/>
+                        <FormItem label="选项D" :prop="'selects['+index+'].choiceD'">
+                            <input type="text"  v-model="item.choiceD" placeholder="选项D"/>
                         </FormItem>
                         <FormItem label="正确答案" :prop="'selects['+index+'].key'">
                             <Select :datas="choiceParams" v-model="item.key" ></Select>
@@ -43,7 +44,7 @@
                         <RichTextEditor v-model="data.resolve" cacheName="choiceResolveEditor"></RichTextEditor>
                     </FormItem>
                     <FormItem :no-padding="true">
-                        <Button color="primary" :loading="isLoading" @click="submit">提交</Button>&nbsp;&nbsp;&nbsp;
+                        <Button color="primary" :loading="isLoading" @click="submit">添加题目</Button>&nbsp;&nbsp;&nbsp;
                         <Button @click="reset">重置验证</Button>
                     </FormItem>
                 </Form>
@@ -55,14 +56,15 @@
     export default {
         name:'addChoice',
         data() {
+
             let that = this;
             return {
                 select:{
-                    index:0,
-                    A:'',
-                    B:'',
-                    C:'',
-                    D:'',
+                    index:null,
+                    choiceA:'',
+                    choiceB:'',
+                    choiceC:'',
+                    choiceD:'',
                     key:''
                 },
                 choiceParams:['A','B','C','D'],
@@ -74,16 +76,16 @@
                 selectCount:1,
                 mode: 'single',
                 data: {
-                    knowledge:'',
+                    knowledgeId:null,
                     topic:'',
                     resolve:'',
                     selects:[
                         {
                             index:1,
-                            A:'',
-                            B:'',
-                            C:'',
-                            D:'',
+                            choiceA:'',
+                            choiceB:'',
+                            choiceC:'',
+                            choiceD:'',
                             key:''
                         }
                     ]
@@ -108,11 +110,11 @@
                     },
                     required: [
                         'topic',
-                        'knowledge',
-                        'selects[].A',
-                        'selects[].B',
-                        'selects[].C',
-                        'selects[].D',
+                        'knowledgeId',
+                        'selects[].choiceA',
+                        'selects[].choiceB',
+                        'selects[].choiceC',
+                        'selects[].choiceD',
                         'selects[].key',
                     ],
                 }
@@ -123,11 +125,16 @@
                 let validResult = this.$refs.form.valid();
                 // log(validResult.messages);
                 if (validResult.result) {
-                    this.$Message("验证成功");
+                    // this.$Message("验证成功");
                     this.isLoading = true;
-                    setTimeout(() => {
-                        this.isLoading = false;
-                    }, 1000);
+                    axios.post('/question/addChoiceQuestion',
+                        JSON.stringify(this.data),
+                        {headers: {'Content-Type': 'application/json'}})
+                        .then(response=>{
+                            console.log(response);
+                            this.isLoading = false;
+                            this.$Message.success('成功添加综合知识题！');
+                        }).catch(error=>{});
                 } else {
                     this.$Message.error(`还有${validResult.messages.length}个错误未通过验证。`);
                 }
@@ -144,6 +151,15 @@
             remove(index) {
                 this.data.selects.splice(index, 1);
             }
+        },
+        mounted() {
+            axios.get("/knowledge/list")
+                .then(response=>{
+                    // this.setSubjectParams(response.data);
+                    // console.log(response.data)
+                    this.knowledgeParams=response.data;
+                })
+                .catch(()=>{})
         }
     };
 </script>

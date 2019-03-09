@@ -13,6 +13,8 @@
     "heyui": "^1.15.0",
     "js-model": "^1.6.1",
     "lodash.debounce": "^4.0.8",
+    "plupload-es6": "^2.1.11",
+    "qiniu-js-es6": "^1.0.31",
     "vue": "^2.5.22",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

@@ -46,6 +46,14 @@ let vueRouter= new VueRouter({
           component: () => import(/* webpackChunkName: "about" */ './pages/form.vue'),
           meta: {title: '首页'}
         }, {
+          path: '/subjectKnowledgeManager',
+          name: 'subjectKnowledgeManager',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import(/* webpackChunkName: "about" */ './pages/SubjectKnowledge.vue'),
+          meta: {title: '科目知识点管理'}
+        }, {
           path: 'questionInfo',
           name: 'questionInfo',
           // route level code-splitting
@@ -77,6 +85,22 @@ let vueRouter= new VueRouter({
           // which is lazy-loaded when the route is visited.
           component: () => import(/* webpackChunkName: "about" */ './pages/question/add-thesis.vue'),
           meta:{title:'添加论文题'}
+        },  {
+          path: 'paperInfo',
+          name: 'paperInfo',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import(/* webpackChunkName: "about" */ './pages/paper/paper-info.vue'),
+          meta:{title:'试卷管理'}
+        }, {
+          path: 'addPaper',
+          name: 'addPaper',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import(/* webpackChunkName: "about" */ './pages/paper/add-paper.vue'),
+          meta:{title:'添加试卷'}
         }, {
           path: 'systemError',
           name: 'systemError',

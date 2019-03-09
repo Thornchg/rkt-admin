@@ -8,12 +8,7 @@
   <div class="account-info-vue">
     <Form :model="acc" :rules="rules" ref="form" showErrorTip>
       <FormItem label="头像" prop="avatar">
-        <!--<Qiniu :options="options" type="image" data-type="url" v-model="acc.avatar"></Qiniu>-->
-        <!--<Uploader type="images" dataType="url" :files="image"></Uploader>-->
-        <!--<Uploader @click="fileclick" @fileclick="fileclick" type="image"  data-type="url" ref="uploader" >
-          &lt;!&ndash;<div slot="dragdrop" v-if="$slots.dragdrop"><slot name="dragdrop"></slot></div>&ndash;&gt;
-        </Uploader>-->
-        <Button @click="fileclick">sd</Button>
+        <Qiniu :options="options" type="image" data-type="url" v-model="acc.avatar"></Qiniu>
       </FormItem>
       <FormItem label="姓名" prop="name">
         <input type="text" v-model="acc.name"/>
@@ -54,11 +49,8 @@ export default {
     account: Object
   },
   data() {
-    const link = 'https://lokeshdhakar.com/projects/lightbox2/images/';
     return {
       acc: Utils.copy(this.account),
-      image: `${link}image-1.jpg`,
-      // acc: this.account,
       rules: {
         required: ['name', 'email', 'org'],
         email: ['email']
@@ -92,13 +84,6 @@ export default {
     reset() {
       this.$refs.form.reset();
       this.acc = Utils.copy(this.account);
-    },
-    fileclick(file) {
-      console.log('click')
-      this.$Modal({
-        title: '预览或者下载',
-        content: `自定义处理文件预览或者下载`
-      })
     }
   },
   computed: {

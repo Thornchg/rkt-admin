@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './vue/components'
 import './assets/css/app.less'
+import './axios-config'
 Vue.config.productionTip = false;
 Vue.use(HeyUI);
 new Vue({

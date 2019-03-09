@@ -5,6 +5,9 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 module.exports = {
+  devServer:{
+    port:8082
+  },
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
@@ -19,7 +22,8 @@ module.exports = {
       'vue':'Vue',
       'vue-router': 'VueRouter',
       'vuex':'Vuex',
-      'heyui': 'HeyUI'
+      'heyui': 'HeyUI',
+      'axios':'axios'
     },
     plugins:[
         new webpack.ProvidePlugin({

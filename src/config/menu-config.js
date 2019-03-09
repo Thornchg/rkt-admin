@@ -6,9 +6,26 @@ const menuConfig = [
     count: 1
   },
   {
+    title: '科目知识点管理',
+    key: 'subjectKnowledgeManager',
+    icon: 'icon-heart'
+  }, {
     title: 'Icons',
     key: 'icons',
     icon: 'icon-heart'
+  },{
+    title: '试卷管理',
+    key: 'paperManager',
+    icon: 'icon-heart',
+    children:[
+      {
+        title:'试卷信息',
+        key:'paperInfo'
+      },{
+        title:'添加试卷',
+        key:'addPaper'
+      },
+    ]
   },
   {
     title: '列表应用',
